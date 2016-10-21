@@ -1,4 +1,4 @@
-Hola, yo instalé aeroo reports así en ubuntu 14.04 y funciona bien con odoo V8
+INSTALACION DE AEROO EN UBUNTU Y ODOO 8
 
 # Actualizar repositorio y server
 sudo apt-get update
