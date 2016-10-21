@@ -1,0 +1,66 @@
+Hola, yo instalé aeroo reports así en ubuntu 14.04 y funciona bien con odoo V8
+
+# Actualizar repositorio y server
+sudo apt-get update
+sudo apt-get upgrade -y
+# Instalar Java Runtime (necesario para Libreoffice)
+sudo apt-get install default-jre -y
+# Instalar Libreoffice como servicio en puerto 8100 del localhost
+sudo apt-get install libreoffice libreoffice-script-provider-python -y
+echo '#!/bin/sh' | sudo tee /etc/init.d/office
+echo '/usr/bin/libreoffice --headless --accept="socket,host=localhost,port=8100,tcpNoDelay=1;urp;" &' | sudo tee -a /etc/init.d/office
+sudo chmod +x /etc/init.d/office
+sudo update-rc.d office defaults
+sudo /etc/init.d/office
+# Verificar si Libreoffice está escuchando
+telnet localhost 8100
+# Probar si Libreoffice hace las conversiones de formatos con unoconv
+
+sudo apt-get install unoconv
+unoconv -p 8100 -f xls pepe.ods
+unoconv -p 8100 -f pdf pepe.odt
+unoconv -p 8100 -f doc pepe.odt
+
+# Instalar herramientas y dependencias de aeroolib
+sudo apt-get install git -y
+sudo apt-get install python-setuptools
+sudo apt-get install python-lxml -y
+# Instalar aeroolib desde github oficial
+sudo mkdir /opt/aeroo
+cd /opt/aeroo
+sudo git clone https://github.com/aeroo/aeroolib.git
+cd /opt/aeroo/aeroolib
+sudo python setup.py install
+
+# Instalar dependencias de aeroo-docs
+sudo apt-get install python-genshi python-cairo -y
+sudo apt-get install python3-pip -y
+sudo pip3 install jsonrpc2 daemonize
+# Instalr aeroo_docs desde github oficial
+cd /opt/aeroo
+sudo git clone https://github.com/aeroo/aeroo_docs.git
+yes | sudo python3 /opt/aeroo/aeroo_docs/aeroo-docs start -c /etc/aeroo-docs.conf
+sudo ln -s /opt/aeroo/aeroo_docs/aeroo-docs /etc/init.d/aeroo-docs
+sudo update-rc.d aeroo-docs defaults
+sudo service aeroo-docs start
+sudo service aeroo-docs restart
+
+# Despues de instalar odoo, instalamos aeroo-reports oficial desde github 
+sudo apt-get install -y git python-pip
+sudo apt-get install -y python-dev libcups2-dev
+sudo pip install pycups
+git clone -b master https://github.com/aeroo/aeroo_reports.git
+sudo cp -Rf aeroo_reports/* path-a-tu-directorio-de-addons-de-odoo/
+echo -e "\n---- Go to Settings >> Local Modules > Search for: report-aeroo and install  ----"
+# Install report_aeroo
+# Go to Settings >> Users >> Administrator in the backend of Odoo
+# Tick the box next to 'Technical Features' and Save, then refresh your browser window.
+# Go to Settings >> Update Modules List > Update
+# Go to Settings >> Local Modules > Search for: Aeroo
+# Install report_aeroo
+# Click: Continue >> Choose Simple Authentication from the Authentication dropdown list, and add username and password: anonymous
+# [ ! ] You can change the username and password in: /etc/aeroo-docs.conf if required.
+# Click Apply and Test. You should see the following message if it was successful:
+# Success! Connection to the DOCS service was successfully established and PDF convertion is working.
+
+Con esta instalación puedo imprimir reportes de aeroo en pdf y libro de IVA en excel!
