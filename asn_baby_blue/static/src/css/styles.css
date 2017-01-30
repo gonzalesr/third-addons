@@ -1,0 +1,41 @@
+.openerp .oe_leftbar > div .oe_footer, body.oe_single_form .oe_single_form_footer{
+	display:none !important;
+}
+
+.navbar-inverse{
+	/* background-color:#3D8CFF;#5BD8EB 2DACEF*/
+	background-color:#209FB3;
+	border-color:#99EBF7;
+	border-top:0;
+}
+
+.navbar-inverse .navbar-nav > li > a{
+	color:#fff;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
+	background-color:#33C0D6;
+	font-weight:bold;
+	color:white;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus{
+	background-color:#33C0D6;
+	font-weight:bold;
+}
+.openerp .oe_view_manager_current > .oe_view_manager_header {
+    background-color: #AAEFFA;
+    background-image: linear-gradient(to bottom, #ffffff, #f6f6f6);
+}
+
+.oe_view_manager_wrapper{
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 9px rgba(0, 0, 0, 0.1);
+}
+.openerp .oe_login button, .openerp button.oe_highlight{
+	background-color: #209FB3;
+    background-image: linear-gradient(to bottom, #33C0D6, #209FB3);
+}
+.openerp button.oe_highlight:hover{
+	background-color: #209FB3;
+    background-image: linear-gradient(to bottom, #33C0D6, #209FB3);
+}
